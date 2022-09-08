@@ -22,20 +22,25 @@ scissorcounter = 0
 PlayerPastPlays = []
 ComputerPastPlays = []
 
+rockweight = 1
+paperweight = 1
+scissorweight = 1
+
 
 # Make a list of choices, in this case "rock, paper and scissors"
 t = ["Rock", "Paper", "Scissors"]
-
-# assign a random choice to the computer (robot player)
-computer = random.choices(t, weights=(1, 2, 100,), k=1)
-print(computer)
-computer = computer[0]
 
 # set player to False cause its nice for making a loop so you dont have to restart code to play again
 player = False
 
 # the function in which the actual code is, its an infinite loop!
 while player == False:
+    
+    # assign a random choice to the computer (robot player)
+    computer = random.choices(t, weights=(rockweight, paperweight, scissorweight,), k=1)
+    print(computer)
+    computer = computer[0]
+    
     # set player to True
     # the "Fore.Cyan and Style Reset All" add some color to the text using colorama
     print(Fore.CYAN + "Rock, Paper or Scissors?" + Style.RESET_ALL)
@@ -109,13 +114,16 @@ while player == False:
     PlayerPastPlays.append(player)
     ComputerPastPlays.append(computer)
 
-    for eachyoke in ComputerPastPlays:
+    for eachyoke in PlayerPastPlays:
         if eachyoke == "Rock":
             rockcounter = rockcounter + 1
-        if eachyoke == "Paper":
+            rockweight = rockweight + 1
+        elif eachyoke == "Paper":
             papercounter = papercounter + 1
-        if eachyoke == "Scissors":
+            paperweight = paperweight + 1
+        elif eachyoke == "Scissors":
             scissorcounter = scissorcounter + 1
+            scissorweight = scissorweight + 1
 
     # Create a bar graph object
     bar_chart = pygal.Bar()
@@ -124,14 +132,15 @@ while player == False:
     bar_chart.add('PlayerWins', [PlayerWins])
     bar_chart.add('Computerwins', [ComputerWins])
     # saves to an svg file
-    bar_chart.render_to_file('bar_chart.svg')
+    bar_chart.render_to_file('score.svg')
 
-    pie_chart = pygal.Pie()
-    pie_chart.title = 'Player moves'
-    pie_chart.add('Rock', rockcounter)
-    pie_chart.add('Paper', papercounter)
-    pie_chart.add('Scissors', scissorcounter)
-    pie_chart.render_to_file('pie_chart.svg')
+    bar_chart = pygal.Bar()
+    bar_chart.title = 'Player Moves'
+    bar_chart.add('Rock', [])
+    bar_chart.add('Paper',  [])
+    bar_chart.add('Scissors',      [])
+    bar_chart.render_to_file('playermoves.svg')
+
 
     # just a print that shows a move log and gives the text some color (player)
     print(Fore.MAGENTA + "Player Move Log:", PlayerPastPlays)
