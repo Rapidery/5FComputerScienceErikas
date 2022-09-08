@@ -111,10 +111,7 @@ while player == False:
     print(ComputerWins, " losses")
 
     # the empty print is to add some space, but im to lazy to do it properly =)
-    print("  ")
-    print("  ")
-    print("  ")
-    print("  ")
+    print("\n \n \n \n")
 
     # little pause before the next game
     sleep(3)
@@ -122,4 +119,3 @@ while player == False:
     # player was set to True, but we want it to be False so the loop continues
     player = False
     computer = t[randint(0, 2)]
- 
