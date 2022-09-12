@@ -1,9 +1,14 @@
-# Import the randint, sleep, pygal and colorama libraries
+# library to make random easier
 from random import randint
+# library for the pauses
 from time import sleep
+# colors!!!!!!!
 import colorama
+# where to put the colors
 from colorama import Fore, Back, Style
+# library for making the graphs
 import pygal
+# more libraries for random!
 import random
 
 # a small pause before start
@@ -14,6 +19,7 @@ PlayerWins = 0
 ComputerWins = 0
 Ties = 0
 
+# sets the variables for how many times a move is done
 rockcounter = 0
 papercounter = 0
 scissorcounter = 0
@@ -22,6 +28,7 @@ scissorcounter = 0
 PlayerPastPlays = []
 ComputerPastPlays = []
 
+# sets the variables for the weight in order to make certain moves more common or less common
 rockweight = 1
 paperweight = 1
 scissorweight = 1
@@ -35,12 +42,13 @@ player = False
 
 # the function in which the actual code is, its an infinite loop!
 while player == False:
-    
+
     # assign a random choice to the computer (robot player)
-    computer = random.choices(t, weights=(rockweight, paperweight, scissorweight,), k=1)
+    computer = random.choices(t, weights=(
+        rockweight, paperweight, scissorweight,), k=1)
     print(computer)
     computer = computer[0]
-    
+
     # set player to True
     # the "Fore.Cyan and Style Reset All" add some color to the text using colorama
     print(Fore.CYAN + "Rock, Paper or Scissors?" + Style.RESET_ALL)
@@ -114,13 +122,17 @@ while player == False:
     PlayerPastPlays.append(player)
     ComputerPastPlays.append(computer)
 
+    # counts how much of "rock, paper and scissors" are found within the variable
     for eachyoke in PlayerPastPlays:
+        # if there is a rock add 1 to rock counter and the rock weight
         if eachyoke == "Rock":
             rockcounter = rockcounter + 1
             rockweight = rockweight + 1
+        # if there is a paper add 1 to paper counter and the paper weight
         elif eachyoke == "Paper":
             papercounter = papercounter + 1
             paperweight = paperweight + 1
+        # if there is a scissors add 1 to scissors counter and the scissors weight
         elif eachyoke == "Scissors":
             scissorcounter = scissorcounter + 1
             scissorweight = scissorweight + 1
@@ -134,13 +146,15 @@ while player == False:
     # saves to an svg file
     bar_chart.render_to_file('score.svg')
 
+    # Creates a bar graph object
     bar_chart = pygal.Bar()
+    # adds the values
     bar_chart.title = 'Player Moves'
-    bar_chart.add('Rock', [])
-    bar_chart.add('Paper',  [])
-    bar_chart.add('Scissors',      [])
+    bar_chart.add('Rock', [rockcounter])
+    bar_chart.add('Paper',  [papercounter])
+    bar_chart.add('Scissors', [scissorcounter])
+    # saves to an svg file
     bar_chart.render_to_file('playermoves.svg')
-
 
     # just a print that shows a move log and gives the text some color (player)
     print(Fore.MAGENTA + "Player Move Log:", PlayerPastPlays)
@@ -155,6 +169,16 @@ while player == False:
     print(PlayerWins, " wins")
     # prints the amount of losses
     print(ComputerWins, " losses")
+
+    # resets the counter so that it doesnt "fibonacci"
+    rockcounter = 0
+    papercounter = 0
+    scissorcounter = 0
+
+    # resetsthe weight so that it doesnt "fibonacci"
+    rockweight = 1
+    paperweight = 1
+    scissorweight = 1
 
     # the empty print is to add some space, but im to lazy to do it properly =)
     print("\n \n \n \n")
