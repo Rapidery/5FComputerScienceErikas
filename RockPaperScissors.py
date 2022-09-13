@@ -44,7 +44,10 @@ player = False
 while player == False:
 
     # assign a random choice to the computer (robot player)
-    computer = random.choices(t, weights=(paperweight, scissorweight, rockweight ,), k=1)
+    # its paper, scissors then rock so that if the player uses rock more often, then the computer,
+    # will play paper more often
+    computer = random.choices(t, weights=(
+        paperweight, scissorweight, rockweight,), k=1)
     computer = computer[0]
 
     # set player to True
