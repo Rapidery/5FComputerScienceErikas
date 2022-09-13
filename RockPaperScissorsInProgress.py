@@ -182,7 +182,7 @@ while player == False:
     paperweight = 1
     scissorweight = 1
 
-    # the empty print is to add some space, but im to lazy to do it properly =)
+    # the empty print is to add some space
     print("\n \n \n \n")
 
     # little pause before the next game
