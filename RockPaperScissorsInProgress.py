@@ -44,8 +44,10 @@ player = False
 while player == False:
 
     # assign a random choice to the computer (robot player)
+    # its paper, scissor and then rock so that if the player uses more rock,
+    # paper is more likely to be chosen by the computer
     computer = random.choices(t, weights=(
-        rockweight, paperweight, scissorweight,), k=1)
+        paperweight, scissorweight, rockweight,), k=1)
     print(computer)
     computer = computer[0]
 
@@ -175,7 +177,7 @@ while player == False:
     papercounter = 0
     scissorcounter = 0
 
-    # resetsthe weight so that it doesnt "fibonacci"
+    # resets the weight so that it doesnt "fibonacci"
     rockweight = 1
     paperweight = 1
     scissorweight = 1
