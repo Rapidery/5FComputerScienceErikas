@@ -10,9 +10,24 @@ from colorama import Fore, Back, Style
 import pygal
 # more libraries for random!
 import random
+# import libraries for sys
+import sys
+# import libraries for time
+import time
 
 # a small pause before start
-sleep(4)
+sleep(2)
+
+# create the illusion of someone typing
+# set the typing speed
+typing_speed = 50
+# the def/variable?
+def slow_type(t):
+    for l in t:
+        sys.stdout.write(l)
+        sys.stdout.flush()
+        # set the pauses between the letters
+        time.sleep(random.random()*10.0/typing_speed)
 
 # set variables for the scores
 PlayerWins = 0
@@ -52,7 +67,8 @@ while player == False:
 
     # set player to True
     # the "Fore.Cyan and Style Reset All" add some color to the text using colorama
-    print(Fore.CYAN + "Rock, Paper or Scissors?" + Style.RESET_ALL)
+    slow_type(Fore.CYAN + "Rock, Paper or Scissors?" + Style.RESET_ALL)
+    print(" ")
     player = input()
     player = player.capitalize()
 
@@ -70,14 +86,13 @@ while player == False:
     elif player == "Rock":
         if computer == "Paper":
             # the "Fore.RED and Style Reset All" add some color to the text using colorama
-            print(Fore.RED + "You lose!", computer,
+            print(Fore.RED +  "You lose!", computer,
                   "covers", player + Style.RESET_ALL)
             ComputerWins = ComputerWins + 1
         else:
             # the "Fore.GREEN and Style Reset All" add some color to the text using colorama
-            print(
-                Fore.GREEN + "You win!", player, "smashes", computer + Style.RESET_ALL
-            )
+            print(Fore.GREEN + "You win!", player,
+                  "smashes", computer + Style.RESET_ALL)
             PlayerWins = PlayerWins + 1
 
     # if the player chose paper and the pc chose scissors, print loss
@@ -165,7 +180,9 @@ while player == False:
     print(PlayerWins, " wins")
     # prints the amount of losses
     print(ComputerWins, " losses")
-
+    #just resets the colors and backgrounds
+    print(Style.RESET_ALL + (" "))
+    
     # resets the counter so that it doesnt "fibonacci"
     rockcounter = 0
     papercounter = 0
@@ -180,7 +197,7 @@ while player == False:
     print("\n \n \n \n")
 
     # little pause before the next game
-    sleep(3)
+    sleep(2)
 
     # player was set to True, but we want it to be False so the loop continues
     player = False
